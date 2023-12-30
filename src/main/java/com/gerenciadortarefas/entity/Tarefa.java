@@ -2,6 +2,7 @@ package com.gerenciadortarefas.entity;
 
 import com.gerenciadortarefas.status.TarefaStatusEnum;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.time.LocalTime;
 @Data
 @Getter
 @Setter
+@Builder
 public class Tarefa implements Serializable {
 
     private static final long serialVersionUID = 1L;
