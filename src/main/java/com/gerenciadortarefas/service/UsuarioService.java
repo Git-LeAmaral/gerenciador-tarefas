@@ -3,6 +3,7 @@ package com.gerenciadortarefas.service;
 import com.gerenciadortarefas.entity.Usuario;
 import com.gerenciadortarefas.repository.IRoleRepository;
 import com.gerenciadortarefas.repository.IUsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 public class UsuarioService {
 
     @Autowired
@@ -21,11 +23,21 @@ public class UsuarioService {
 
     public Usuario salvarUsuario(Usuario usuario) {
 
+        usuario.setRoles(usuario.getRoles()
+                .stream()
+                .map(role -> iRoleRepository.findByNome(role.getNome()))
+                .toList());
+
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return this.iUsuarioRepository.save(usuario);
     }
 
     public Usuario atualizarUsuario(Usuario usuario) {
+
+        usuario.setRoles(usuario.getRoles()
+                .stream()
+                .map(role -> iRoleRepository.findByNome(role.getNome()))
+                .toList());
 
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return this.iUsuarioRepository.save(usuario);
