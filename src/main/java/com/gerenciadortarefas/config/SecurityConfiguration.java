@@ -47,6 +47,7 @@ public class SecurityConfiguration {
                             .requestMatchers(HttpMethod.GET, "/saudacao").hasAnyAuthority(PermissaoEnum.ADMINISTRADOR.toString())
                             .requestMatchers(HttpMethod.GET, "/usuarios").hasAnyAuthority(PermissaoEnum.USUARIO.toString())
                             .requestMatchers(HttpMethod.POST, "/usuarios").hasAnyAuthority(PermissaoEnum.ADMINISTRADOR.toString())
+                            .requestMatchers(HttpMethod.POST, "/gerenciador-tarefas").hasAnyAuthority(PermissaoEnum.ADMINISTRADOR.toString())
                             .anyRequest()
                             .authenticated();
 

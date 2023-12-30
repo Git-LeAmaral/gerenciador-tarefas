@@ -11,8 +11,6 @@ public class CadastrarTarefaRequest {
 
     private String titulo;
     private String descricao;
-    private TarefaStatusEnum status;
-    private Long responsavelId;
     private Long criadorId;
     private int quantidadeHosrasEstimadas;
 
