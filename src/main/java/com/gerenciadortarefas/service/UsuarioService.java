@@ -1,6 +1,7 @@
 package com.gerenciadortarefas.service;
 
 import com.gerenciadortarefas.entity.Usuario;
+import com.gerenciadortarefas.repository.IRoleRepository;
 import com.gerenciadortarefas.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,8 @@ public class UsuarioService {
 
     @Autowired
     private IUsuarioRepository iUsuarioRepository;
+    @Autowired
+    private IRoleRepository iRoleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
