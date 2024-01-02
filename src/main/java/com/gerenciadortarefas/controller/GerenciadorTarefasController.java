@@ -1,7 +1,9 @@
 package com.gerenciadortarefas.controller;
 
 import com.gerenciadortarefas.entity.Tarefa;
+import com.gerenciadortarefas.request.AtualizarTarefaRequest;
 import com.gerenciadortarefas.request.CadastrarTarefaRequest;
+import com.gerenciadortarefas.response.AtualizarTarefaResponse;
 import com.gerenciadortarefas.response.CadastrarTarefaResponse;
 import com.gerenciadortarefas.response.ObterTarefasPaginadaResponse;
 import com.gerenciadortarefas.response.ObterTarefasResponse;
@@ -80,5 +82,28 @@ public class GerenciadorTarefasController {
                 .build();
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<AtualizarTarefaResponse> atualizarTarefa(@PathVariable Long id, @RequestBody AtualizarTarefaRequest request) {
+        Tarefa tarefaAtualizada = gerenciadorTarefasService.atualizarTarefa(id, request);
+
+        AtualizarTarefaResponse response = AtualizarTarefaResponse.builder()
+                .id(tarefaAtualizada.getId())
+                .titulo(tarefaAtualizada.getTitulo())
+                .descricao(tarefaAtualizada.getDescricao())
+                .criador(tarefaAtualizada.getCriador().getUsername())
+                .quantidadeHorasEstimadas(tarefaAtualizada.getQuantidadeHosrasEstimadas())
+                .status(tarefaAtualizada.getStatus().toString())
+                .responsavel(tarefaAtualizada.getResponsavel().getUsername())
+                .quantidadeHorasRealizdas(tarefaAtualizada.getQuantidadeHorasRealizadas())
+                .build();
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void excluirTarefa(@PathVariable Long id) {
+        gerenciadorTarefasService.excluirTarefa(id);
     }
 }

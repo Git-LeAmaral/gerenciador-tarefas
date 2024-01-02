@@ -2,6 +2,7 @@ package com.gerenciadortarefas.service;
 
 import com.gerenciadortarefas.entity.Tarefa;
 import com.gerenciadortarefas.repository.GerenciadorTarefasRepository;
+import com.gerenciadortarefas.request.AtualizarTarefaRequest;
 import com.gerenciadortarefas.request.CadastrarTarefaRequest;
 import com.gerenciadortarefas.status.TarefaStatusEnum;
 import jakarta.transaction.Transactional;
@@ -40,5 +41,25 @@ public class GerenciadorTarefasService {
 
     public Page<Tarefa> obtemTodasTarefas( Pageable pageable) {
         return this.gerenciadorTarefasRepository.findAll(pageable);
+    }
+
+    public Tarefa atualizarTarefa(Long id, AtualizarTarefaRequest request) {
+
+        Tarefa tarefa = this.gerenciadorTarefasRepository.findById(id).get();
+
+        tarefa.setQuantidadeHosrasEstimadas(request.getQuantidadeHorasEstimadas());
+        tarefa.setStatus(request.getStatus());
+        tarefa.setTitulo(request.getTitulo());
+        tarefa.setDescricao(request.getDescricao());
+        tarefa.setResponsavel(usuarioService.obterUsuarioId(request.getResponsavelId()).get());
+        tarefa.setQuantidadeHorasRealizadas(request.getQuantidadeHorasRealizadas());
+
+        this.gerenciadorTarefasRepository.save(tarefa);
+
+        return tarefa;
+    }
+
+    public void excluirTarefa(Long id) {
+        this.gerenciadorTarefasRepository.deleteById(id);
     }
 }
