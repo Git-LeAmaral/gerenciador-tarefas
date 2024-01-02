@@ -22,6 +22,23 @@ public class Tarefa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Tarefa() {
+
+    }
+
+    public Tarefa(Long id, String titulo, String descricao, TarefaStatusEnum status, Usuario responsavel, Usuario criador, int quantidadeHosrasEstimadas, Integer quantidadeHorasRealizadas, LocalTime dataCadastro, LocalTime dataAtualizacao) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.status = status;
+        this.responsavel = responsavel;
+        this.criador = criador;
+        this.quantidadeHosrasEstimadas = quantidadeHosrasEstimadas;
+        this.quantidadeHorasRealizadas = quantidadeHorasRealizadas;
+        this.dataCadastro = dataCadastro;
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -55,9 +72,5 @@ public class Tarefa implements Serializable {
     @Column
     @UpdateTimestamp
     private LocalTime dataAtualizacao;
-
-    @Column
-    private LocalTime tempoRealizado;
-
 
 }

@@ -6,6 +6,8 @@ import com.gerenciadortarefas.request.CadastrarTarefaRequest;
 import com.gerenciadortarefas.status.TarefaStatusEnum;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +32,13 @@ public class GerenciadorTarefasService {
 
         return this.gerenciadorTarefasRepository.save(tarefa);
 
+    }
+
+    public Page<Tarefa> obtemTarefasPorTitulo(String titulo, Pageable pageable) {
+        return this.gerenciadorTarefasRepository.findByTituloContaining(titulo, pageable);
+    }
+
+    public Page<Tarefa> obtemTodasTarefas( Pageable pageable) {
+        return this.gerenciadorTarefasRepository.findAll(pageable);
     }
 }
