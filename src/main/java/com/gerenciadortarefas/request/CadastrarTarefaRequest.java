@@ -17,6 +17,7 @@ public class CadastrarTarefaRequest {
     @Length(min = 10, max = 100, message = "{cadastrar.tarefa.request.descricao.limite}")
     private String descricao;
 
+    @NotNull(message = "{cadastrar.tarefa.request.criadorId.obrigatorio}")
     private Long criadorId;
 
     @NotNull(message = "{cadastrar.tarefa.request.quantidadeHosrasEstimadas.obrigatorio}")

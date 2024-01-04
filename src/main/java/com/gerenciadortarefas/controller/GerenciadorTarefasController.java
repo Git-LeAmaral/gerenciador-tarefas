@@ -86,7 +86,7 @@ public class GerenciadorTarefasController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<AtualizarTarefaResponse> atualizarTarefa(@PathVariable Long id, @RequestBody AtualizarTarefaRequest request) {
+    public ResponseEntity<AtualizarTarefaResponse> atualizarTarefa(@PathVariable Long id, @Valid @RequestBody AtualizarTarefaRequest request) {
         Tarefa tarefaAtualizada = gerenciadorTarefasService.atualizarTarefa(id, request);
 
         AtualizarTarefaResponse response = AtualizarTarefaResponse.builder()
@@ -97,7 +97,7 @@ public class GerenciadorTarefasController {
                 .quantidadeHorasEstimadas(tarefaAtualizada.getQuantidadeHosrasEstimadas())
                 .status(tarefaAtualizada.getStatus().toString())
                 .responsavel(tarefaAtualizada.getResponsavel().getUsername())
-                .quantidadeHorasRealizdas(tarefaAtualizada.getQuantidadeHorasRealizadas())
+                .quantidadeHorasRealizdas(tarefaAtualizada.getQuantidadeHorasRealizadas() != null ? tarefaAtualizada.getQuantidadeHorasRealizadas() : null)
                 .build();
 
         return new ResponseEntity<>(response, HttpStatus.OK);
