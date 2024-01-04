@@ -8,6 +8,7 @@ import com.gerenciadortarefas.response.CadastrarTarefaResponse;
 import com.gerenciadortarefas.response.ObterTarefasPaginadaResponse;
 import com.gerenciadortarefas.response.ObterTarefasResponse;
 import com.gerenciadortarefas.service.GerenciadorTarefasService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,7 @@ public class GerenciadorTarefasController {
     private GerenciadorTarefasService gerenciadorTarefasService;
 
     @PostMapping
-    public ResponseEntity<CadastrarTarefaResponse> salvarTerefa(@RequestBody CadastrarTarefaRequest request) {
+    public ResponseEntity<CadastrarTarefaResponse> salvarTerefa(@Valid @RequestBody CadastrarTarefaRequest request) {
         Tarefa tarefaSalva = gerenciadorTarefasService.salvarTarefa(request);
 
         CadastrarTarefaResponse response = CadastrarTarefaResponse.builder()
